@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Military Vehicle Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            text-align: center;
+            background-color: #121212;
+            color: #f0f0f0;
+        }
+
+        h1 {
+            font-size: 36px;
+        }
+
+        select, button {
+            padding: 10px 20px;
+            font-size: 18px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            background-color: #333;
+            color: #f0f0f0;
+            border: none;
+        }
+
+        #vehicle-loadout {
+            margin-top: 30px;
+            font-size: 22px;
+            line-height: 1.6;
+        }
+
+        img {
+            width: 100%;
+            max-width: 400px;
+            display: block;
+            margin: 20px auto;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            padding: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Glockodile's Random Military Vehicle Generator</h1>
+
+    <img src="assets/vehicles.gif" alt="Military Vehicles GIF">
+
+    <label for="faction">Choose Faction:</label>
+    <br>
+    <select id="faction">
+        <option value="Western">Western</option>
+        <option value="Soviet">Soviet/Russian</option>
+        <option value="All">All Factions</option>
+    </select>
+    <br>
+
+    <label for="vehicle-class">Choose Vehicle Class:</label>
+    <br>
+    <select id="vehicle-class">
+        <option value="Tank">Tank</option>
+        <option value="IFV">IFV</option>
+        <option value="APC">APC</option>
+        <option value="Car">Car</option>
+    </select>
+    <br>
+
+    <button onclick="generateVehicleLoadout()">Generate Vehicle Loadout</button>
+
+    <div id="vehicle-loadout"></div>
+
+    <script>
+        const primaryWeapons = {
+            Tanks: ["M256 120mm Smoothbore Gun", "2A46 125mm Smoothbore Gun", "L11A5 120mm Rifled Gun"],
+            IFVs: ["M242 Bushmaster 25mm Autocannon", "2A42 30mm Autocannon", "Mk44 30mm Chain Gun"],
+            APCs: [".50 cal M2 Browning", "AGL-40 Automatic Grenade Launcher", "20mm M61 Vulcan"],
+            Cars: ["M240 7.62mm MG", "12.7mm NSV Machine Gun", "Mk 19 Grenade Launcher"]
+        };
+
+        const secondaryWeapons = {
+            Tanks: ["M240 Coaxial MG", "PKT Coaxial MG", "M2 Browning AA MG"],
+            IFVs: ["7.62mm M240 MG", "9M133 Kornet ATGM", "TOW ATGM"],
+            APCs: ["M240 7.62mm MG", "AGS-17 30mm Grenade Launcher", "DShK 12.7mm MG"],
+            Cars: ["M60 MG", "PKM 7.62mm MG", "Mk 19 Automatic Grenade Launcher"]
+        };
+
+        const engineTypes = ["Diesel Engine", "Turbine Engine", "Hybrid Engine"];
+
+        const mobilityTypes = {
+            Tanks: ["Tracked", "Tracked"],
+            IFVs: ["Tracked", "Wheeled"],
+            APCs: ["Wheeled", "Tracked"],
+            Cars: ["Wheeled", "Wheeled"]
+        };
+
+        const names = {
+            Western: {
+                Tanks: ["Vanguard", "Paladin", "Raven", "Sentinel"],
+                IFVs: ["Striker", "Hawk", "Bison", "Foxhound"],
+                APCs: ["Guardian", "Bulldog", "Puma", "Coyote"],
+                Cars: ["Nomad", "Pathfinder", "Recon", "Scout"]
+            },
+            Soviet: {
+                Tanks: ["Volk", "Ural", "Kobra", "Strela"],
+                IFVs: ["Bars", "Krokodil", "Lynx", "Grom"],
+                APCs: ["Medved", "Tigr", "Yastreb", "Berkut"],
+                Cars: ["Gryphon", "Lada", "Kavkaz", "Zubr"]
+            }
+        };
+
+        function getRandomItem(arr) {
+            return arr[Math.floor(Math.random() * arr.length)];
+        }
+
+        function generateVehicleLoadout() {
+            const faction = document.getElementById("faction").value;
+            const vehicleClass = document.getElementById("vehicle-class").value;
+
+            const vehicleName = getRandomItem(faction === "All" ? names.Western[vehicleClass].concat(names.Soviet[vehicleClass]) : names[faction][vehicleClass]);
+            const primaryWeapon = getRandomItem(primaryWeapons[vehicleClass]);
+            const secondaryWeapon = getRandomItem(secondaryWeapons[vehicleClass]);
+            const engineType = getRandomItem(engineTypes);
+            const mobility = getRandomItem(mobilityTypes[vehicleClass]);
+
+            document.getElementById("vehicle-loadout").innerHTML = `
+                <h2>Your ${faction === "All" ? "Mixed Faction" : faction} ${vehicleClass} Loadout:</h2>
+                <ul>
+                    <li><strong>Vehicle Name:</strong> ${vehicleName}</li>
+                    <li><strong>Primary Weapon:</strong> ${primaryWeapon}</li>
+                    <li><strong>Secondary Weapon:</strong> ${secondaryWeapon}</li>
+                    <li><strong>Engine Type:</strong> ${engineType}</li>
+                    <li><strong>Mobility:</strong> ${mobility}</li>
+                </ul>
+            `;
+        }
+    </script>
+</body>
+</html>

@@ -109,6 +109,36 @@
             }
         };
 
+        const additional = {
+            Western: {
+                Tank: ["Hull MG", "Reactive Armor", "Thermals", "Night Vision", "Active Protection System", "Smoke Grenades"],
+                IFV: ["Smoke Grenades", "Port Holes", "APS"],
+                APC: ["Smoke Grenades", "Open Topped", "Enclosed Hull"],
+                Car: ["Additional Armor", "Open Turret", "CROWS"]
+            },
+            Soviet: {
+                Tank: ["Hull MG", "Reactive Armor", "Thermals", "Night Vision", "Active Protection System", "Smoke Grenades"],
+                IFV: ["Smoke Grenades", "Port Holes", "APS"],
+                APC: ["Smoke Grenades", "Open Topped", "Enclosed Hull"],
+                Car: ["Additional Armor", "Open Turret", "CROWS"]
+            }
+        };
+
+        const ammotype = {
+            Western: {
+                Tank: ["APFSDS", "HEATFS", "HEAT", "A-PERS", "HE", "HESH", "APBC", "APHEBC", "APHECBC", "APCBC"],
+                IFV: ["AP", "APHE", "APFSDS", "HE"],
+                APC: ["AP", "HE"],
+                Car: ["AP", "HE"]
+            },
+            Soviet: {
+               Tank: ["APFSDS", "HEATFS", "HEAT", "A-PERS", "HE", "HESH", "APBC", "APHEBC", "APHECBC", "APCBC"],
+                IFV: ["AP", "APHE", "APFSDS", "HE"],
+                APC: ["AP", "HE"],
+                Car: ["AP", "HE"]
+            }
+        };
+
         const engineTypes = ["Diesel Engine", "Turbine Engine", "Hybrid Engine"];
 
         const mobilityTypes = {
@@ -151,8 +181,10 @@
                 <ul>
                     <li><strong>Primary Weapon:</strong> ${primaryWeapon}</li>
                     <li><strong>Secondary Weapon:</strong> ${secondaryWeapon}</li>
+                    <li><strong>Extra Attribute:</strong> ${ammotype}</li>
                     <li><strong>Engine Type:</strong> ${engineType}</li>
                     <li><strong>Mobility:</strong> ${mobility}</li>
+                    <li><strong>Extra Attribute:</strong> ${additional}</li>
                 </ul>
             `;
         }

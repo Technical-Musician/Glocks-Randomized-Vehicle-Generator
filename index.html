@@ -141,7 +141,6 @@
             const faction = document.getElementById("faction").value;
             const vehicleClass = document.getElementById("vehicle-class").value;
 
-            const vehicleName = getRandomItem(faction === "All" ? vehicleNames.Western[vehicleClass].concat(vehicleNames.Soviet[vehicleClass]) : vehicleNames[faction][vehicleClass]);
             const primaryWeapon = getRandomItem(faction === "All" ? primaryWeapons.Western[vehicleClass].concat(primaryWeapons.Soviet[vehicleClass]) : primaryWeapons[faction][vehicleClass]);
             const secondaryWeapon = getRandomItem(faction === "All" ? secondaryWeapons.Western[vehicleClass].concat(secondaryWeapons.Soviet[vehicleClass]) : secondaryWeapons[faction][vehicleClass]);
             const engineType = getRandomItem(engineTypes);
@@ -150,7 +149,6 @@
             document.getElementById("vehicle-loadout").innerHTML = `
                 <h2>Your ${faction === "All" ? "Mixed Faction" : faction} ${vehicleClass} Loadout:</h2>
                 <ul>
-                    <li><strong>Vehicle Name:</strong> ${vehicleName}</li>
                     <li><strong>Primary Weapon:</strong> ${primaryWeapon}</li>
                     <li><strong>Secondary Weapon:</strong> ${secondaryWeapon}</li>
                     <li><strong>Engine Type:</strong> ${engineType}</li>

@@ -33,6 +33,13 @@
             line-height: 1.6;
         }
 
+        img {
+            width: 100%;
+            max-width: 400px;
+            display: block;
+            margin: 20px auto;
+        }
+
         ul {
             list-style-type: none;
             padding: 0;
@@ -45,6 +52,8 @@
 </head>
 <body>
     <h1>Glockodile's Random Military Vehicle Generator</h1>
+
+    <img src="assets/vehicles.gif" alt="Military Vehicles GIF">
 
     <label for="faction">Choose Faction:</label>
     <br>
@@ -67,45 +76,44 @@
 
     <button onclick="generateVehicleLoadout()">Generate Vehicle Loadout</button>
 
-    <div id="feedback"></div>
     <div id="vehicle-loadout"></div>
 
     <script>
         const primaryWeapons = {
-            Tanks: ["M256 120mm Smoothbore Gun", "2A46 125mm Smoothbore Gun", "L11A5 120mm Rifled Gun"],
-            IFVs: ["M242 Bushmaster 25mm Autocannon", "2A42 30mm Autocannon", "Mk44 30mm Chain Gun"],
-            APCs: [".50 cal M2 Browning", "AGL-40 Automatic Grenade Launcher", "20mm M61 Vulcan"],
-            Cars: ["M240 7.62mm MG", "12.7mm NSV Machine Gun", "Mk 19 Grenade Launcher"]
+            Tank: ["M256 120mm Gun", "2A46 125mm Gun", "L11A5 120mm Gun"],
+            IFV: ["M242 Bushmaster 25mm", "2A42 30mm", "Mk44 30mm Chain Gun"],
+            APC: [".50 cal M2 Browning", "AGL-40 Grenade Launcher", "20mm M61 Vulcan"],
+            Car: ["M240 MG", "12.7mm NSV MG", "Mk 19 Grenade Launcher"]
         };
 
         const secondaryWeapons = {
-            Tanks: ["M240 Coaxial MG", "PKT Coaxial MG", "M2 Browning AA MG"],
-            IFVs: ["7.62mm M240 MG", "9M133 Kornet ATGM", "TOW ATGM"],
-            APCs: ["M240 7.62mm MG", "AGS-17 30mm Grenade Launcher", "DShK 12.7mm MG"],
-            Cars: ["M60 MG", "PKM 7.62mm MG", "Mk 19 Automatic Grenade Launcher"]
+            Tank: ["M240 Coaxial MG", "PKT Coaxial MG", "M2 Browning MG"],
+            IFV: ["M240 MG", "9M133 Kornet ATGM", "TOW ATGM"],
+            APC: ["M240 MG", "AGS-17 Grenade Launcher", "DShK MG"],
+            Car: ["M60 MG", "PKM 7.62mm MG", "Mk 19 Grenade Launcher"]
         };
 
         const engineTypes = ["Diesel Engine", "Turbine Engine", "Hybrid Engine"];
 
         const mobilityTypes = {
-            Tanks: ["Tracked", "Tracked"],
-            IFVs: ["Tracked", "Wheeled"],
-            APCs: ["Wheeled", "Tracked"],
-            Cars: ["Wheeled", "Wheeled"]
+            Tank: ["Tracked", "Tracked"],
+            IFV: ["Tracked", "Wheeled"],
+            APC: ["Wheeled", "Tracked"],
+            Car: ["Wheeled", "Wheeled"]
         };
 
-        const names = {
+        const vehicleNames = {
             Western: {
-                Tanks: ["Vanguard", "Paladin", "Raven", "Sentinel"],
-                IFVs: ["Striker", "Hawk", "Bison", "Foxhound"],
-                APCs: ["Guardian", "Bulldog", "Puma", "Coyote"],
-                Cars: ["Nomad", "Pathfinder", "Recon", "Scout"]
+                Tank: ["Vanguard", "Paladin", "Raven", "Sentinel"],
+                IFV: ["Striker", "Hawk", "Bison", "Foxhound"],
+                APC: ["Guardian", "Bulldog", "Puma", "Coyote"],
+                Car: ["Nomad", "Pathfinder", "Recon", "Scout"]
             },
             Soviet: {
-                Tanks: ["Volk", "Ural", "Kobra", "Strela"],
-                IFVs: ["Bars", "Krokodil", "Lynx", "Grom"],
-                APCs: ["Medved", "Tigr", "Yastreb", "Berkut"],
-                Cars: ["Gryphon", "Lada", "Kavkaz", "Zubr"]
+                Tank: ["Volk", "Ural", "Kobra", "Strela"],
+                IFV: ["Bars", "Krokodil", "Lynx", "Grom"],
+                APC: ["Medved", "Tigr", "Yastreb", "Berkut"],
+                Car: ["Gryphon", "Lada", "Kavkaz", "Zubr"]
             }
         };
 
@@ -114,24 +122,15 @@
         }
 
         function generateVehicleLoadout() {
-            // Display debug information
-            document.getElementById("feedback").innerText = "Button clicked! Generating loadout...";
-
             const faction = document.getElementById("faction").value;
             const vehicleClass = document.getElementById("vehicle-class").value;
 
-            if (!faction || !vehicleClass) {
-                document.getElementById("feedback").innerText = "Please select both faction and vehicle class.";
-                return;
-            }
-
-            const vehicleName = getRandomItem(faction === "All" ? names.Western[vehicleClass].concat(names.Soviet[vehicleClass]) : names[faction][vehicleClass]);
+            const vehicleName = getRandomItem(faction === "All" ? vehicleNames.Western[vehicleClass].concat(vehicleNames.Soviet[vehicleClass]) : vehicleNames[faction][vehicleClass]);
             const primaryWeapon = getRandomItem(primaryWeapons[vehicleClass]);
             const secondaryWeapon = getRandomItem(secondaryWeapons[vehicleClass]);
             const engineType = getRandomItem(engineTypes);
             const mobility = getRandomItem(mobilityTypes[vehicleClass]);
 
-            // Update loadout display
             document.getElementById("vehicle-loadout").innerHTML = `
                 <h2>Your ${faction === "All" ? "Mixed Faction" : faction} ${vehicleClass} Loadout:</h2>
                 <ul>
@@ -143,10 +142,6 @@
                 </ul>
             `;
         }
-
-        document.addEventListener("DOMContentLoaded", function() {
-            document.getElementById("feedback").innerText = "DOM fully loaded. Ready to generate loadouts!";
-        });
     </script>
 </body>
 </html>

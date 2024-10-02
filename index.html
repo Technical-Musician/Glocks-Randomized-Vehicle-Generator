@@ -80,40 +80,56 @@
 
     <script>
         const primaryWeapons = {
-            Tank: ["M256 120mm Gun", "2A46 125mm Gun", "L11A5 120mm Gun"],
-            IFV: ["M242 Bushmaster 25mm", "2A42 30mm", "Mk44 30mm Chain Gun"],
-            APC: [".50 cal M2 Browning", "AGL-40 Grenade Launcher", "20mm M61 Vulcan"],
-            Car: ["M240 MG", "12.7mm NSV MG", "Mk 19 Grenade Launcher"]
+            Western: {
+                Tank: ["M256 120mm Gun", "L44 120mm Gun", "M58 105mm Gun"],
+                IFV: ["M242 Bushmaster 25mm", "Mk44 30mm Chain Gun", "Rheinmetall MK 20"],
+                APC: [".50 cal M2 Browning", "Mk 19 Grenade Launcher", "20mm M61 Vulcan"],
+                Car: ["M240 MG", "M2 Browning MG", "Mk 19 Grenade Launcher"]
+            },
+            Soviet: {
+                Tank: ["2A46 125mm Gun", "D-81 125mm Gun", "2A82-1M 125mm Gun"],
+                IFV: ["2A42 30mm Cannon", "Shipunov 2A72 30mm", "2A38M 30mm"],
+                APC: ["AGS-17 30mm AGL", "KPVT 14.5mm", "NSV 12.7mm MG"],
+                Car: ["PKM 7.62mm MG", "NSV 12.7mm MG", "AGS-30 AGL"]
+            }
         };
 
         const secondaryWeapons = {
-            Tank: ["M240 Coaxial MG", "PKT Coaxial MG", "M2 Browning MG"],
-            IFV: ["M240 MG", "9M133 Kornet ATGM", "TOW ATGM"],
-            APC: ["M240 MG", "AGS-17 Grenade Launcher", "DShK MG"],
-            Car: ["M60 MG", "PKM 7.62mm MG", "Mk 19 Grenade Launcher"]
+            Western: {
+                Tank: ["M240 Coaxial MG", "M2 Browning MG", "FN MAG 7.62mm MG"],
+                IFV: ["M240 MG", "TOW ATGM", "Spike ATGM"],
+                APC: ["M240 MG", "Mk 19 AGL", "M2 Browning MG"],
+                Car: ["M60 MG", "M240 MG", "Mk 19 AGL"]
+            },
+            Soviet: {
+                Tank: ["PKT Coaxial MG", "NSVT 12.7mm MG", "DShK MG"],
+                IFV: ["PKT MG", "Kornet ATGM", "9M133 Kornet ATGM"],
+                APC: ["PKM MG", "AGS-17 AGL", "NSV 12.7mm MG"],
+                Car: ["PKM MG", "NSV 12.7mm MG", "AGS-30 AGL"]
+            }
         };
 
         const engineTypes = ["Diesel Engine", "Turbine Engine", "Hybrid Engine"];
 
         const mobilityTypes = {
-            Tank: ["Tracked", "Tracked"],
+            Tank: ["Tracked"],
             IFV: ["Tracked", "Wheeled"],
             APC: ["Wheeled", "Tracked"],
-            Car: ["Wheeled", "Wheeled"]
+            Car: ["Wheeled"]
         };
 
         const vehicleNames = {
             Western: {
-                Tank: ["Vanguard", "Paladin", "Raven", "Sentinel"],
-                IFV: ["Striker", "Hawk", "Bison", "Foxhound"],
-                APC: ["Guardian", "Bulldog", "Puma", "Coyote"],
-                Car: ["Nomad", "Pathfinder", "Recon", "Scout"]
+                Tank: ["M1 Abrams", "Challenger 2", "Leopard 2"],
+                IFV: ["Bradley", "Warrior", "CV90"],
+                APC: ["Stryker", "LAV-25", "Boxer"],
+                Car: ["Humvee", "Oshkosh JLTV", "Caiman MRAP"]
             },
             Soviet: {
-                Tank: ["Volk", "Ural", "Kobra", "Strela"],
-                IFV: ["Bars", "Krokodil", "Lynx", "Grom"],
-                APC: ["Medved", "Tigr", "Yastreb", "Berkut"],
-                Car: ["Gryphon", "Lada", "Kavkaz", "Zubr"]
+                Tank: ["T-72", "T-80", "T-90"],
+                IFV: ["BMP-3", "BMD-4", "Kurganets-25"],
+                APC: ["BTR-80", "BTR-90", "Bumerang"],
+                Car: ["Tigr", "GAZ-2975", "KamAZ Typhoon"]
             }
         };
 
@@ -126,8 +142,8 @@
             const vehicleClass = document.getElementById("vehicle-class").value;
 
             const vehicleName = getRandomItem(faction === "All" ? vehicleNames.Western[vehicleClass].concat(vehicleNames.Soviet[vehicleClass]) : vehicleNames[faction][vehicleClass]);
-            const primaryWeapon = getRandomItem(primaryWeapons[vehicleClass]);
-            const secondaryWeapon = getRandomItem(secondaryWeapons[vehicleClass]);
+            const primaryWeapon = getRandomItem(faction === "All" ? primaryWeapons.Western[vehicleClass].concat(primaryWeapons.Soviet[vehicleClass]) : primaryWeapons[faction][vehicleClass]);
+            const secondaryWeapon = getRandomItem(faction === "All" ? secondaryWeapons.Western[vehicleClass].concat(secondaryWeapons.Soviet[vehicleClass]) : secondaryWeapons[faction][vehicleClass]);
             const engineType = getRandomItem(engineTypes);
             const mobility = getRandomItem(mobilityTypes[vehicleClass]);
 

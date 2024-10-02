@@ -109,14 +109,14 @@
             }
         };
 
-        const additional = {
+        const additionalAttributes = {
             Tank: ["Hull MG", "Reactive Armor", "Thermals", "Night Vision", "Active Protection System", "Smoke Grenades"],
             IFV: ["Smoke Grenades", "Port Holes", "APS"],
             APC: ["Smoke Grenades", "Open Topped", "Enclosed Hull"],
             Car: ["Additional Armor", "Open Turret", "CROWS"]
         };
 
-        const ammotype = {
+        const ammoTypes = {
             Tank: ["APFSDS", "HEATFS", "HEAT", "A-PERS", "HE", "HESH", "APBC", "APHEBC", "APHECBC", "APCBC"],
             IFV: ["AP", "APHE", "APFSDS", "HE"],
             APC: ["AP", "HE"],
@@ -159,15 +159,15 @@
             const secondaryWeapon = getRandomItem(faction === "All" ? secondaryWeapons.Western[vehicleClass].concat(secondaryWeapons.Soviet[vehicleClass]) : secondaryWeapons[faction][vehicleClass]);
             const engineType = getRandomItem(engineTypes);
             const mobility = getRandomItem(mobilityTypes[vehicleClass]);
-            const ammotype = getRandomItem(ammotype[VehicleClass]);
-            const additional = getRandomItem(additional[VehicleClass]);
+            const ammoType = getRandomItem(ammoTypes[vehicleClass]);  // Renamed from 'ammotype'
+            const additional = getRandomItem(additionalAttributes[vehicleClass]);  // Renamed from 'additional'
 
             document.getElementById("vehicle-loadout").innerHTML = `
                 <h2>Your ${faction === "All" ? "Mixed Faction" : faction} ${vehicleClass} Loadout:</h2>
                 <ul>
                     <li><strong>Primary Weapon:</strong> ${primaryWeapon}</li>
                     <li><strong>Secondary Weapon:</strong> ${secondaryWeapon}</li>
-                    <li><strong>Ammo:</strong> ${ammotype}</li>
+                    <li><strong>Ammo:</strong> ${ammoType}</li>
                     <li><strong>Engine Type:</strong> ${engineType}</li>
                     <li><strong>Mobility:</strong> ${mobility}</li>
                     <li><strong>Extra Attribute:</strong> ${additional}</li>

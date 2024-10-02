@@ -122,6 +122,8 @@
         }
 
         function generateVehicleLoadout() {
+            console.log("Button clicked!"); // Add a debug log to check if the function is called
+
             const faction = document.getElementById("faction").value;
             const vehicleClass = document.getElementById("vehicle-class").value;
 
@@ -142,6 +144,10 @@
                 </ul>
             `;
         }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            console.log("DOM fully loaded and parsed!"); // Make sure the DOM is fully loaded
+        });
     </script>
 </body>
 </html>

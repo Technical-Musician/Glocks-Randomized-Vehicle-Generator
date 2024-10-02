@@ -110,7 +110,6 @@
         };
 
         const additional = {
-
             Tank: ["Hull MG", "Reactive Armor", "Thermals", "Night Vision", "Active Protection System", "Smoke Grenades"],
             IFV: ["Smoke Grenades", "Port Holes", "APS"],
             APC: ["Smoke Grenades", "Open Topped", "Enclosed Hull"],
@@ -160,8 +159,8 @@
             const secondaryWeapon = getRandomItem(faction === "All" ? secondaryWeapons.Western[vehicleClass].concat(secondaryWeapons.Soviet[vehicleClass]) : secondaryWeapons[faction][vehicleClass]);
             const engineType = getRandomItem(engineTypes);
             const mobility = getRandomItem(mobilityTypes[vehicleClass]);
-            const ammotype = getRandomItem(ammotype);
-            const additional = getRandomItem(additional);
+            const ammotype = getRandomItem(ammotype[VehicleClass]);
+            const additional = getRandomItem(additional[VehicleClass]);
 
             document.getElementById("vehicle-loadout").innerHTML = `
                 <h2>Your ${faction === "All" ? "Mixed Faction" : faction} ${vehicleClass} Loadout:</h2>
